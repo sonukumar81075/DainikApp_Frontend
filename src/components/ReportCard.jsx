@@ -8,13 +8,19 @@ const ReportCard = ({ report }) => {
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-dainik ring-1 ring-slate-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-dainik-red/30">
       <div className="relative h-52 overflow-hidden">
         <img
-          src={
-            report.image ||
-            'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
-          }
-          alt={report.title}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-        />
+  src={
+    report.image
+      ? report.image.replace("http://", "https://")
+      : "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+  }
+  alt={report.title}
+  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+  onError={(e) => {
+    e.currentTarget.src =
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80";
+  }}
+/>
+
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/15 to-black/60" />
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-dainik-red shadow">
           {formatDate(report.createdAt)}
